@@ -11,7 +11,7 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'is_expense',
+        'is_expanse',
         'image'
     ];
 }

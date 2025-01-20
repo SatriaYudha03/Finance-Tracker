@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TransactionResource\Pages;
 use App\Filament\Resources\TransactionResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Transaction;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -47,23 +48,27 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('category.is_expanse')
-                    ->label('Pengeluaran')
-                    ->boolean(),
+                Tables\Columns\ImageColumn::make('category.image')
+                ->sortable(),
                 Tables\Columns\TextColumn::make('category.name')
-                ->numeric()
-                    ->sortable(),
+                    ->description(fn (Transaction $record): string => $record->name)
+                    ->label('Transaction'),
+                Tables\Columns\IconColumn::make('category.is_expanse')
+                    ->label('Type')
+                    ->trueIcon('heroicon-o-arrow-up-circle')
+                    ->falseIcon('heroicon-o-arrow-down-circle')
+                    ->trueColor('danger')
+                    ->falseColor('success')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('date')
-                    ->date()
+                    ->label('Date')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('amount')
                     ->numeric()
+                    ->money('IDR', locale: 'id')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('note')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

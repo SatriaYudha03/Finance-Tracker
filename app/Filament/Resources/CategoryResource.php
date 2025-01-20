@@ -27,6 +27,8 @@ class CategoryResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Toggle::make('is_expanse')
+                    ->label('Is Expense')
+                    ->default(false) // Set default to false
                     ->required(),
                 Forms\Components\FileUpload::make('image')
                     ->image()
@@ -42,6 +44,11 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_expanse')
+                ->label('Type')
+                ->trueIcon('heroicon-o-arrow-up-circle')
+                ->falseIcon('heroicon-o-arrow-down-circle')
+                ->trueColor('danger')
+                ->falseColor('success')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
